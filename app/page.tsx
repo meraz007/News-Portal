@@ -120,7 +120,7 @@ export default function Home() {
                   <Link
                     key={index}
                     href={`/${news.slug}`}
-                    className="mr-8 hover:text-red-600 transition-colors cursor-pointer font-medium"
+                    className="mr-8 hover:text-black font-semibold text-sm transition-colors cursor-pointer font-medium"
                   >
                     {news.title}
                   </Link>
