@@ -25,18 +25,18 @@ const Navbar = () => {
                         <Link href={'/'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="500" height="100" viewBox="0 0 500 100" role="img" aria-labelledby="titleDesc">
   
-  <text x="70" y="35" font-family="Georgia, 'Times New Roman', Times, serif" font-size="20" font-style="italic" fill="#000000">the</text>
+  <text x="70" y="35" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="20" fontStyle="italic" fill="#000000">the</text>
   
-  <text x="70" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#000000">CAMPUS</text>
+  <text x="70" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="44" fontWeight="700" fill="#000000">CAMPUS</text>
   
-  <text x="280" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#D62828">TODAY</text>
+  <text x="280" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="44" fontWeight="700" fill="#D62828">TODAY</text>
 </svg>
                         </Link>
                     {/* <svg xmlns="http://www.w3.org/2000/svg" width="700" height="100" viewBox="0 0 700 100" role="img" aria-labelledby="titleDesc">
-                        <text x="70" y="35" font-family="Georgia, 'Times New Roman', Times, serif" font-size="20" font-style="italic" fill="#000000">the</text>
-                        <text x="70" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#000000">CAMPUS</text>
+                        <text x="70" y="35" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="20" fontStyle="italic" fill="#000000">the</text>
+                        <text x="70" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="44" fontWeight="700" fill="#000000">CAMPUS</text>
                         
-                        <text x="305" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#D62828">TODAY</text>
+                        <text x="305" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="44" fontWeight="700" fill="#D62828">TODAY</text>
                         </svg> */}
                     </div>
 
