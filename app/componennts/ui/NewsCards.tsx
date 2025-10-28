@@ -44,10 +44,10 @@ const NewsCards = () => {
             key={post.id}
             className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300"
           >
-            <div className="flex gap-6 p-6">
+            <div className="flex flex-col sm:flex-row gap-6 p-6">
               {/* Image Section */}
               <div className="relative flex-shrink-0">
-                <div className="w-64 h-48 relative overflow-hidden rounded-lg">
+                <div className="w-full sm:w-64 h-48 relative overflow-hidden rounded-lg">
                   <Image
                     src={post.image}
                     alt={post.title}

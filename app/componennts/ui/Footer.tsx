@@ -9,7 +9,7 @@ const Footer = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [email, setEmail] = useState('');
     const router = useRouter();
-    
+
     const handleSearch = () => {
         if (searchQuery.trim()) {
             router.push(`/search?s=${encodeURIComponent(searchQuery)}`);
@@ -22,15 +22,18 @@ const Footer = () => {
             handleSearch();
         }
     };
-    
+
     return (
         <div className='py-4 md:py-6 max-w-[1360px] mx-auto px-4 md:px-6'>
             <div className='flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0'>
                 <div className='flex items-center'>
-                    <div className="font-extrabold text-xl md:text-2xl tracking-tight">
-                        <span className="text-red-600">THRIVE!</span>
-                        <span className="bg-black text-white px-2 py-1 ml-1">NEWS</span>
-                    </div>
+                    <Link href={'/'}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="80" viewBox="0 0 500 100" className="w-full h-auto max-w-[300px] md:max-w-none" role="img" aria-labelledby="titleDesc">
+                            <text x="70" y="35" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="16" fontStyle="italic" fill="#000000">the</text>
+                            <text x="70" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="36" fontWeight="700" fill="#000000">CAMPUS</text>
+                            <text x="240" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="36" fontWeight="700" fill="#D62828">TODAY</text>
+                        </svg>
+                    </Link>
                 </div>
                 <div className="w-full md:w-auto block relative flex bg-gray-200 rounded items-center">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 md:w-5 md:h-5" />
@@ -87,7 +90,7 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                
+
                 {/* Categories */}
                 <div className="flex-shrink-0 w-full sm:w-auto">
                     <h3 className="text-base md:text-lg font-bold mb-3 text-center sm:text-left">Categories</h3>

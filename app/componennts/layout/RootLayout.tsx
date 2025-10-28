@@ -34,7 +34,7 @@ const RootLayout = ({children}: {children: React.ReactNode}) => {
           <header className=''>
               <Navbar />
           </header>
-          <main className='flex-grow px-4'>
+          <main className='flex-grow px-4 pt-[100px] sm:pt-0'>
               {children}
           </main>
           <div className='bg-gray-100'>
