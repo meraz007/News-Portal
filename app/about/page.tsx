@@ -204,7 +204,7 @@ const AboutPage = () => {
               </div>
 
               {/* Current Expansion & Calls to Action */}
-              <div className="bg-gray-50 p-8 rounded-lg">
+              <div className="bg-gray-50 p-0 sm:p-8 rounded-lg">
                 <h2 className="text-3xl font-bold text-black mb-6 font-serif">Current Expansion & Get Involved</h2>
                 <p className="text-lg text-gray-700 mb-8 leading-relaxed">
                   We're expanding into premium content, subscriptions, streaming news app, and more. 
@@ -225,7 +225,7 @@ const AboutPage = () => {
                     <Link
                       key={index}
                       href={action.link}
-                      className="bg-red-600 text-white flex py-4 px-1 justify-center rounded text-center font-semibold hover:bg-red-700 transition-colors"
+                      className="bg-red-600 text-white flex py-4 px-1 justify-center items-center rounded text-center font-semibold hover:bg-red-700 transition-colors"
                     >
                       {action.title}
                     </Link>

@@ -23,6 +23,7 @@ export interface MegaMenuItem {
     { name: "About", href: "/about" },
     {
       name: "Church",
+      href: "/category/church",
       megaMenu: [
         {
           title: "Tragic Shooting at Michigan LDS Chapel Leaves Multiple Dead and Injured",
@@ -57,6 +58,7 @@ export interface MegaMenuItem {
       ],
     },
     { name: "Media", 
+      href: "/category/media",
       megaMenu: [
         {
           title: "Tragic Shooting at Michigan LDS Chapel Leaves Multiple Dead and Injured",
@@ -90,7 +92,9 @@ export interface MegaMenuItem {
         },
       ],
      },
-    { name: "Government", 
+    { 
+      name: "Government", 
+      href: "/category/government",
       megaMenu: [
         {
           title: "Tragic Shooting at Michigan LDS Chapel Leaves Multiple Dead and Injured",
@@ -125,6 +129,7 @@ export interface MegaMenuItem {
       ],
      },
     { name: "Arts", 
+      href: "/category/arts",
       megaMenu: [
         {
           title: "Tragic Shooting at Michigan LDS Chapel Leaves Multiple Dead and Injured",
@@ -159,6 +164,7 @@ export interface MegaMenuItem {
       ],
      },
     { name: "Education", 
+      href: "/category/education",
       megaMenu: [
         {
           title: "Tragic Shooting at Michigan LDS Chapel Leaves Multiple Dead and Injured",
@@ -192,7 +198,9 @@ export interface MegaMenuItem {
         },
       ],
      },
-    { name: "Family", 
+    { 
+      name: "Family", 
+      href: "/category/family",
       megaMenu: [
         {
           title: "Tragic Shooting at Michigan LDS Chapel Leaves Multiple Dead and Injured",

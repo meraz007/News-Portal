@@ -88,7 +88,7 @@ const SubscribePage = () => {
 
             {/* Monthly Plan - Highlighted */}
             <div className="bg-red-600 text-white rounded-lg p-8 relative transform scale-105 shadow-2xl">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <div className="absolute -top-1 sm:-top-4 left-1/2 transform -translate-x-1/2">
                 <span className="bg-yellow-400 text-black px-4 py-2 rounded-full text-sm font-semibold">
                   Most Popular
                 </span>

@@ -1,54 +1,173 @@
 "use client";
 
 import Link from "next/link";
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { MegaMenu } from "./MegaMenu";
 import { navLinks, NavLink } from "../common";
-import { ChevronDown, Facebook, Twitter, Youtube, Linkedin, Rss, Search } from "lucide-react";
+import { ChevronDown, Facebook, Twitter, Youtube, Linkedin, Rss, Search, Menu, X, ArrowRightCircle } from "lucide-react";
 
 const Navbar = () => {
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
+    const [isSticky, setIsSticky] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const searchPopoverRef = useRef<HTMLDivElement | null>(null);
+    const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            setIsSticky(scrollTop > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        if (!isSearchOpen) return;
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (searchPopoverRef.current && !searchPopoverRef.current.contains(event.target as Node)) {
+                setIsSearchOpen(false);
+            }
+        };
+
+        const handleEsc = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setIsSearchOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEsc);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEsc);
+        };
+    }, [isSearchOpen]);
+
+    useEffect(() => {
+        if (isSearchOpen) {
+            // Defer to next tick to ensure it's visible before focusing
+            const id = window.setTimeout(() => {
+                searchInputRef.current?.focus();
+            }, 0);
+            return () => window.clearTimeout(id);
+        }
+    }, [isSearchOpen]);
 
     return (
-        <header className={` bg-white ${activeMenu ? '' : 'border-b border-gray-200'}`}>
-            <div className="">
-                <div className="max-w-[1360px] mx-auto flex justify-between items-center py-6 text-gray-600 text-sm">
-                    <div className="flex items-center gap-3">
-                        <Facebook className="cursor-pointer" />
-                        <Twitter className="cursor-pointer" />
-                        <Youtube className="cursor-pointer" />
-                        <Linkedin className="cursor-pointer" />
-                        <Rss className="cursor-pointer" />
+        <header className={`bg-white ${activeMenu ? '' : 'border-b border-gray-200'}`}>
+            {/* Top Section - Always visible */}
+            <div className="relative">
+                <div className="max-w-[1360px] mx-auto flex justify-between items-center py-4 md:py-6 px-4 md:px-6 text-gray-600 text-sm md:relative bg-white md:bg-transparent fixed md:static top-0 md:top-auto w-full md:w-auto z-50 md:z-auto shadow-lg sm:shadow-none">
+                    {/* Social Icons - Hidden on mobile */}
+                    <div className="hidden md:flex items-center gap-3">
+                        <Facebook className="cursor-pointer hover:text-blue-600 transition" />
+                        <Twitter className="cursor-pointer hover:text-blue-400 transition" />
+                        <Youtube className="cursor-pointer hover:text-red-600 transition" />
+                        <Linkedin className="cursor-pointer hover:text-blue-700 transition" />
+                        <Rss className="cursor-pointer hover:text-orange-600 transition" />
                     </div>
 
-                    <div>
+                    {/* Mobile Menu Button - Visible only on mobile */}
+                    <div className="md:hidden">
+                        <button 
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="text-gray-800 hover:text-red-600 transition"
+                        >
+                            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                        </button>
+                    </div>
+
+                    {/* Logo */}
+                    <div className={`transition-all duration-300 ease-in-out ${isSticky ? 'scale-75' : 'scale-100'} flex-1 md:flex-none`}>
                         <Link href={'/'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="100" viewBox="0 0 500 100" role="img" aria-labelledby="titleDesc">
-  
-  <text x="70" y="35" font-family="Georgia, 'Times New Roman', Times, serif" font-size="20" font-style="italic" fill="#000000">the</text>
-  
-  <text x="70" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#000000">CAMPUS</text>
-  
-  <text x="280" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#D62828">TODAY</text>
-</svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="400" height="80" viewBox="0 0 500 100" className="w-full h-auto max-w-[300px] md:max-w-none" role="img" aria-labelledby="titleDesc">
+                                <text x="70" y="35" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="16" fontStyle="italic" fill="#000000">the</text>
+                                <text x="70" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="36" fontWeight="700" fill="#000000">CAMPUS</text>
+                                <text x="240" y="70" fontFamily="Georgia, 'Times New Roman', Times, serif" fontSize="36" fontWeight="700" fill="#D62828">TODAY</text>
+                            </svg>
                         </Link>
-                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="700" height="100" viewBox="0 0 700 100" role="img" aria-labelledby="titleDesc">
-                        <text x="70" y="35" font-family="Georgia, 'Times New Roman', Times, serif" font-size="20" font-style="italic" fill="#000000">the</text>
-                        <text x="70" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#000000">CAMPUS</text>
-                        
-                        <text x="305" y="70" font-family="Georgia, 'Times New Roman', Times, serif" font-size="44" font-weight="700" fill="#D62828">TODAY</text>
-                        </svg> */}
                     </div>
 
-                    <div className="flex items-center gap-3 text-gray-600">
-                        <Search className="cursor-pointer" />
+                    {/* Search - Hidden on mobile */}
+                    <div className="hidden md:flex items-center gap-3 text-gray-600">
+                        <div className="relative" ref={searchPopoverRef}>
+                            <button
+                                type="button"
+                                onClick={() => setIsSearchOpen((v) => !v)}
+                                aria-label="Toggle search"
+                                className="p-1"
+                            >
+                                <Search className="cursor-pointer hover:text-red-600 transition" />
+                            </button>
+                            <div
+                                className={`absolute right-0 w-72 bg-white p-3 ${isSticky ? 'top-8' : 'top-6'} origin-top transform transition-all duration-300 ease-out ${isSearchOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
+                                aria-hidden={!isSearchOpen}
+                            >
+                                <div className="relative">
+                                    <input
+                                        ref={searchInputRef}
+                                        type="text"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        placeholder="Search articles, topics..."
+                                        className="w-full bg-gray-200 focus:outline-none rounded-md px-3 py-2 pr-10 text-sm transition"
+                                    />
+                                    <button
+                                        type="button"
+                                        aria-label="Submit search"
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 hover:text-red-600 transition"
+                                    >
+                                        <ArrowRightCircle size={20} />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Navigation bar */}
+                {/* Mobile Menu */}
+                {isMobileMenuOpen && (
+                    <div className="md:hidden bg-white border-t fixed top-0 w-full z-[9999] border-gray-200 py-4 px-4 shadow-lg mt-18">
+                        <nav className="flex flex-col gap-4">
+                            {navLinks.map((link: NavLink) => (
+                                <Link
+                                    key={link.name}
+                                    href={link.href || "#"}
+                                    className="font-bold text-base text-gray-800 hover:text-red-600 transition-colors border-b border-gray-200 pb-3 last:border-0"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                            {/* Search for mobile */}
+                            <div className="flex items-center gap-3 text-gray-600 border-t border-gray-200 pt-3">
+                                <Search className="cursor-pointer" />
+                                <span className="text-sm">Search</span>
+                            </div>
+                            {/* Social icons for mobile */}
+                            <div className="flex items-center gap-4 text-gray-600 border-t border-gray-200 pt-3">
+                                <Facebook className="cursor-pointer hover:text-blue-600 transition" />
+                                <Twitter className="cursor-pointer hover:text-blue-400 transition" />
+                                <Youtube className="cursor-pointer hover:text-red-600 transition" />
+                                <Linkedin className="cursor-pointer hover:text-blue-700 transition" />
+                            </div>
+                        </nav>
+                    </div>
+                )}
+
+                {/* Desktop Navigation bar - Sticky */}
                 <nav
-                    className="relative flex justify-center items-center gap-6 font-semibold text-sm"
-                    onMouseLeave={() => setActiveMenu(null)}
+                    className={`hidden md:flex bg-white transition-all duration-300 justify-center items-center gap-4 lg:gap-6 font-semibold text-sm ${
+                        isSticky 
+                            ? 'fixed top-0 left-0 right-0 z-50 shadow-lg py-3' 
+                            : 'relative'
+                    }`}
+                  onMouseLeave={() => setActiveMenu(null)}
                 >
                     {navLinks.map((link: NavLink) => (
                         <div
@@ -58,25 +177,23 @@ const Navbar = () => {
                         >
                             <Link
                                 href={link.href || "#"}
-                                className={`pt-4 mb-3 font-bold text-base relative group ${activeMenu === link.name
-                                        ? "text-red-600"
-                                        : "text-gray-800 hover:text-red-600"
-                                    } transition-colors duration-200`}
+                                className={`font-bold text-sm lg:text-base relative group ${activeMenu === link.name
+                                    ? "text-red-600"
+                                    : "text-gray-800 hover:text-red-600"
+                                    } transition-colors duration-200 ${isSticky ? 'py-2' : 'pt-4 mb-3'}`}
                             >
-                                {link.name}                                
+                                {link.name}
                                 {/* Animated bottom border */}
-                                <div className={`absolute bottom-0 left-0 h-0.5 bg-red-600 transition-all duration-300 ease-in-out ${
-                                    activeMenu === link.name 
-                                        ? 'w-full' 
+                                <div className={`absolute bottom-0 left-0 h-0.5 bg-red-600 transition-all duration-300 ease-in-out ${activeMenu === link.name
+                                        ? 'w-full'
                                         : 'w-0 group-hover:w-full'
-                                }`}></div>
+                                    }`}></div>
                             </Link>
                             {link.megaMenu && (
-                                <ChevronDown 
-                                    size={18} 
-                                    className={`ml-1 mt-1.5 transition-transform duration-300 ease-in-out ${
-                                        activeMenu === link.name ? 'rotate-180' : 'rotate-0'
-                                    }`} 
+                                <ChevronDown
+                                    size={18}
+                                    className={`ml-1 mt-1.5 transition-transform duration-300 ease-in-out ${activeMenu === link.name ? 'rotate-180' : 'rotate-0'
+                                        }`}
                                 />
                             )}
                         </div>
@@ -86,43 +203,43 @@ const Navbar = () => {
                         const activeLink = navLinks.find(l => l.name === activeMenu)
                         const items = activeLink?.megaMenu
                         if (!items) return null
-                        
+
                         // Define menu names and descriptions
                         const menuConfig: Record<string, { name: string; description: string }> = {
-                            'Church': { 
-                                name: 'Church', 
-                                description: 'Latest updates and stories from the church community' 
+                            'Church': {
+                                name: 'Church',
+                                description: 'Latest updates and stories from the church community'
                             },
-                            'Media': { 
-                                name: 'Media', 
-                                description: 'Videos, podcasts, and multimedia content' 
+                            'Media': {
+                                name: 'Media',
+                                description: 'Videos, podcasts, and multimedia content'
                             },
-                            'Government': { 
-                                name: 'Government ', 
-                                description: 'Political updates and policy changes' 
+                            'Government': {
+                                name: 'Government ',
+                                description: 'Political updates and policy changes'
                             },
-                            'Arts': { 
-                                name: 'Arts', 
-                                description: 'Creative works and cultural events' 
+                            'Arts': {
+                                name: 'Arts',
+                                description: 'Creative works and cultural events'
                             },
-                            'Education': { 
-                                name: 'Education', 
-                                description: 'Educational updates and academic achievements' 
+                            'Education': {
+                                name: 'Education',
+                                description: 'Educational updates and academic achievements'
                             },
-                            'Family': { 
-                                name: 'Family', 
-                                description: 'Family-focused content and parenting tips' 
+                            'Family': {
+                                name: 'Family',
+                                description: 'Family-focused content and parenting tips'
                             }
                         }
-                        
+
                         const config = activeMenu ? menuConfig[activeMenu] : null
-                        const finalConfig = config || { 
-                            name: `${activeMenu || 'News'}`, 
-                            description: 'Latest updates and stories' 
+                        const finalConfig = config || {
+                            name: `${activeMenu || 'News'}`,
+                            description: 'Latest updates and stories'
                         }
-                        
-                        return <MegaMenu 
-                            items={items} 
+
+                        return <MegaMenu
+                            items={items}
                             menuName={finalConfig.name}
                             menuDescription={finalConfig.description}
                         />
